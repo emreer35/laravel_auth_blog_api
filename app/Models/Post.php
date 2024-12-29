@@ -12,7 +12,7 @@ class Post extends Model
     protected $fillable = ['title', 'body'];
 
 
-    public function comments(): HasMany
+    public function comment(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

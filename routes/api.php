@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,8 @@ Route::get('/post/{post}', [PostController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
+    // POST Api
+
     //create
     Route::post('/post/create', [PostController::class, 'store']);
     Route::post('/post/createValidate', [PostController::class, 'storeValidate']);
@@ -27,4 +30,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('post/updateValidate/{post}', [PostController::class, 'updateValidate']);
     //delete
     Route::delete('post/delete/{post}', [PostController::class, 'destroy']);
+
+    // Comment APi
+
+    Route::prefix('post/{post}')->group(function () {
+
+        Route::post('/comment/add', [CommentController::class, 'store']);
+        Route::delete('/delete/{comment}', [CommentController::class, 'destroy']);
+    });
 });

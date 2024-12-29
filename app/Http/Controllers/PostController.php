@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::with('comment')->get());
     }
 
     /**
@@ -68,6 +68,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // return $post->with('user', 'comment')->first();
         return PostResource::make($post);
     }
 
